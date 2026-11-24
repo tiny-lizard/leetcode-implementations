@@ -1,0 +1,61 @@
+package lab.ksumpairs;
+
+/**
+ * Hello world!
+ *
+ */
+public class KSumPairs 
+{
+    public static void main( String[] args )
+    {
+        int[] inputArray = {3,1,2,3,4,3};
+        int inputK = 5;
+        System.out.println("Maximum Operations: " + maxOperations(inputArray, inputK));
+        System.out.println( "Run completed." );
+    }
+
+    public static int maxOperations(int[] nums, int k)
+    {
+        int maxOperations, startPointer, traversePointer, kPair;
+
+        maxOperations = 0;
+        startPointer = 0;
+        traversePointer = 1; //index must be startPointer + 1
+
+        while (startPointer < nums.length && traversePointer < nums.length)
+        {
+            //check if pointers are pointing to a k-sum pair.
+            if (nums[startPointer] + nums[traversePointer] == k )
+            {
+                //sort K-sum pair to the head of the array
+                kPair = nums[traversePointer];
+
+                //traverse back towards the start pointer. swap integers forward while doing so.
+                while (traversePointer - 1 > startPointer)
+                {
+                    nums[traversePointer] = nums[traversePointer - 1];
+                    traversePointer--;
+                }
+        
+                //insert found k-pair number into head of array. Move start pointer to position after inserted K-pairs.
+                nums[traversePointer] = kPair;
+                startPointer = traversePointer +1; 
+                traversePointer = startPointer + 1;
+                maxOperations++;
+                continue;
+            }
+
+            if(traversePointer == nums.length-1)
+            {
+                startPointer++;
+                traversePointer = startPointer + 1;
+            }
+            else
+                traversePointer++;
+
+        }
+
+        return maxOperations;
+    }
+
+}

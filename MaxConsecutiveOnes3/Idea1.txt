@@ -1,0 +1,26 @@
+//Max Consecutive Ones III - Idea 1
+
+        while (currIndex < lastZeroIndex){
+            //Check length of consecutive 1's in the array.
+            String stringNums = (nums);
+            String[] splitStringNums = stringNums.split("0+");
+            
+            //Update last index of 0 in nums
+            lastZeroIndex = stringNums.lastIndexOf("0");
+
+            //traverse array of split strings and pick up the longest length of consecutive 1's.
+            for (String s : splitStringNums)
+            {
+                if (s.length() > currMaxConsecutiveOnes)
+                    currMaxConsecutiveOnes = s.length();
+            }
+
+            //Afterwards, "slide" the window of flipped 1's one zero to the right. Use string methods to detemine array indexes.
+            //Flip first index of 2 back to 0.
+            nums[stringNums.indexOf("2")] = 0;
+            if (stringNums.lastIndexOf("2")< nums.length-1)
+                nums[stringNums.lastIndexOf("2")+1] = 2;
+        }
+
+        return currMaxConsecutiveOnes;
+    }

@@ -1,0 +1,55 @@
+class GcdOfStrings2
+{
+    public static void main (String args[])
+    {
+        System.out.println(gcdOfStrings2("ABABAB","ABAB"));
+        System.out.println("Run completed.");
+    }
+
+    public static String gcdOfStrings2(String str1, String str2)
+    {
+        String greatestCommonDivisor;
+        String divisor;
+        int prefixLength;
+        int divPointer;
+
+        //Initialize Variables
+        greatestCommonDivisor = ""; 
+        divPointer = 0;
+        prefixLength = divPointer + 1; //to be used in conjunction with divPointer and the substring method. Need to indicate index after the target index.
+        divisor = "";
+
+        //Start loop with shortest possible string 2 prefix. End loop once maximum possible prefix has been iterated.
+        do
+        {
+            //set divisor substring
+            divisor = str2.substring(0,prefixLength);
+
+            //Check divisibility with string 1.
+            // If divisible, check string 2 next. If not, break current loop and increment prefix length.
+            if (str1.substring(divPointer,prefixLength).equals(divisor))
+            {
+                //Check divisibility with string 2
+                if(str2.substring(divPointer,prefixLength).equals(divisor))
+                {
+                    //Set commonGreatestDivisor if divisible
+                    greatestCommonDivisor = divisor; 
+                }
+                else
+                {
+                    prefixLength++;
+                    break;
+                }
+            }
+            else
+            {
+                prefixLength++;
+                break;
+            }
+            // increment prefix length and reiterate loop.
+            prefixLength++;
+        }
+        while (prefixLength <= str2.length());
+        return greatestCommonDivisor;
+    }
+}
